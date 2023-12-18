@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'restapp.apps.RestappConfig',
     'employ.apps.EmployConfig',
-    'car.apps.CarConfig'
+    'car.apps.CarConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
@@ -64,8 +65,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication'
     ),
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',
-                                   'rest_framework.permissions.IsAuthenticated'),
+    # 'rest_framework.permissions.IsAdminUser',
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',
                                 'rest_framework.filters.SearchFilter',
                                 'rest_framework.filters.OrderingFilter'),
