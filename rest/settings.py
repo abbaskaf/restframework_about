@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import rest_framework.renderers
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -10,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i^fg9025uwdmf4xo7v$no^+*9ai+j=(eybf34@9l1d2ma394qf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'your-other-hosts', 'your-ip-address']
 
 # Application definition
 
@@ -60,6 +62,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'rest.wsgi.application'
+
+RENDERER = ('rest_framework.renderers.JSONRenderer',)
+if DEBUG:
+    RENDERER += ('rest_framework.renderers.BrowsableAPIRenderer',)
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
@@ -72,6 +79,8 @@ REST_FRAMEWORK = {
                                 'rest_framework.filters.OrderingFilter'),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 2,
+
+    'DEFAULT_RENDERER_CLASSES': RENDERER
 }
 
 # Database
